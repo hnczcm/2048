@@ -123,6 +123,51 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
     document.addEventListener('keydown', control);
+    
+    // 添加触摸屏支持
+    let touchStartX = 0;
+    let touchStartY = 0;
+    let touchEndX = 0;
+    let touchEndY = 0;
+    
+    document.addEventListener('touchstart', function(e) {
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+        e.preventDefault();
+    }, { passive: false });
+    
+    document.addEventListener('touchend', function(e) {
+        touchEndX = e.changedTouches[0].clientX;
+        touchEndY = e.changedTouches[0].clientY;
+        
+        handleSwipe();
+    });
+    
+    function handleSwipe() {
+        const deltaX = touchEndX - touchStartX;
+        const deltaY = touchEndY - touchStartY;
+        
+        // 确定滑动的主要方向
+        if (Math.abs(deltaX) > Math.abs(deltaY)) {
+            // 水平滑动
+            if (Math.abs(deltaX) > 20) { // 最小滑动距离
+                if (deltaX > 0) {
+                    move('right');
+                } else {
+                    move('left');
+                }
+            }
+        } else {
+            // 垂直滑动
+            if (Math.abs(deltaY) > 20) { // 最小滑动距离
+                if (deltaY > 0) {
+                    move('down');
+                } else {
+                    move('up');
+                }
+            }
+        }
+    }
 
     // 新游戏按钮
     newGameButton.addEventListener('click', () => {
