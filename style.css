@@ -35,6 +35,15 @@ body {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
+#game-title {
+	color: red; 
+	font-size: 32px; 
+	font-weight: bold;
+	text-align: center;
+}
+
+
+
 .grid-cell {
     background-color: #cdc1b4;
     border-radius: 5px;
